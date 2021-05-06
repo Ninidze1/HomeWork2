@@ -8,6 +8,7 @@ fun main() {
     println(toGeoText(1097))
     println(toGeoText(18021))
     println(toGeoText(101010))
+
 }
 
 fun toGeoText(num: Int): String {
@@ -69,21 +70,26 @@ fun toGeoText(num: Int): String {
     else if (num in 101 until 1000 && num.toString().length == 3 && firstDigit == 1) {
         numNames[100].toString().dropLast(1) + " " + toGeoText(num - temp)
     }
+    // ლოგიკა ოთხნიშნა რიცხვებისთვის, რომლებიც არ იწყებიან 1 ზე
     else if (num in 1001 until 10000 && firstDigit != 1) {
         numNames[firstDigit].toString() + " " + numNames[1000].toString().dropLast(1) + " " +
                 toGeoText(num - temp)
     }
+    // 1 ზე დაწყებული ოთხნიშნა რიცხვების ლოგიკა
     else if (num in 1001 until 10000 && firstDigit == 1) {
         numNames[1000].toString().dropLast(1) + " " + toGeoText(num - temp)
     }
+    // 5 ნიშნა რიცხვების ლოგიკა
     else if (num in 10001 until 100000 && num.toString().length == 5) {
         toGeoText(num.toString().substring(0..1).toInt()) + " " + numNames[1000].toString().dropLast(1) +
                 " " + toGeoText(num.toString().substring(2..4).toInt())
     }
+    // 6 ნიშნა რიცხვების ლოგიკა
     else if (num > 100000 && num.toString().length == 6) {
         toGeoText(num.toString().substring(0..2).toInt()) + numNames[1000].toString().dropLast(1) +
                 " " + toGeoText(num.toString().substring(3..5).toInt())
     }
+    // თუ შეყვანილი მონაცემი საწყის მაპში მოიძებნება
     else numNames[num].toString()
 
     return result
